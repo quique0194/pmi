@@ -1,8 +1,8 @@
 from django.db import models
 
-# Create your models here.
 
-class Persona(models.Model):
+
+class Participante(models.Model):
 	MASCULINO = 'M'
 	FEMENINO = 'F'
 	SEXOS = (
@@ -71,15 +71,17 @@ class Persona(models.Model):
 	apellido_paterno = models.CharField(max_length=45)
 	apellido_materno = models.CharField(max_length=45)
 	sexo = models.CharField(max_length=1, choices=SEXOS)
+	fecha_nacimiento = models.DateField()
+	dpto = models.PositiveIntegerField(choices=DEPARTAMENTOS)
+	direccion = models.CharField(max_length=100)
+	referencia = models.CharField(max_length=100)
+	telefono_fijo = models.CharField(max_length=9)
+	celular = models.CharField(max_length=12)
+	
 	profesion = models.CharField(max_length=45)
 	empresa = models.CharField(max_length=45)
 	cargo = models.CharField(max_length=45)
-	fecha_nacimiento = models.DateField()
-	telefono_fijo = models.CharField(max_length=9)
-	celular = models.CharField(max_length=12)
-	direccion = models.CharField(max_length=100)
-	referencia = models.CharField(max_length=100)
-	dpto = models.PositiveIntegerField(choices=DEPARTAMENTOS)
+
 
 	def __unicode__(self):
 		return self.nombre + ' ' + self.apellido_paterno +\
