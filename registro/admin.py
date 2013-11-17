@@ -7,7 +7,7 @@ class ParticipanteAdmin(admin.ModelAdmin):
 	fieldsets = [
         (None,               {'fields': ['dni','boleto','email']}),
         ('Informacion personal', {'fields': ['nombre','apellido_paterno',
-        	'apellido_materno','sexo','fecha_nacimiento','dpto','direccion',
+        	'apellido_materno','sexo','fecha_nacimiento','departamento','direccion',
         	'referencia', 'telefono_fijo', 'celular']}),
         ('Informacion laboral',{'fields':['profesion', 'empresa',
         	'cargo']})

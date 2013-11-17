@@ -63,24 +63,24 @@ class Participante(models.Model):
 		(UCAYALI, 'Ucayali'),
 	)
 	
-	dni = models.PositiveIntegerField()
-	boleto = models.PositiveIntegerField()
-	email = models.EmailField()
+	dni = models.PositiveIntegerField(unique=True)
+	boleto = models.PositiveIntegerField(unique=True)
+	email = models.EmailField(unique=True)
 
 	nombre = models.CharField(max_length=45)
 	apellido_paterno = models.CharField(max_length=45)
 	apellido_materno = models.CharField(max_length=45)
 	sexo = models.CharField(max_length=1, choices=SEXOS)
-	fecha_nacimiento = models.DateField()
-	dpto = models.PositiveIntegerField(choices=DEPARTAMENTOS)
+	fecha_nacimiento = models.DateField(help_text="Por favor utilice el siguiente formato: <em>DD/MM/AAAA</em>")
+	departamento = models.PositiveIntegerField(choices=DEPARTAMENTOS, default=AREQUIPA, verbose_name="dpto")
 	direccion = models.CharField(max_length=100)
-	referencia = models.CharField(max_length=100)
-	telefono_fijo = models.CharField(max_length=9)
-	celular = models.CharField(max_length=12)
+	referencia = models.CharField(max_length=100, blank=True)
+	telefono_fijo = models.CharField(max_length=9, blank=True)
+	celular = models.CharField(max_length=12, blank=True)
 	
-	profesion = models.CharField(max_length=45)
-	empresa = models.CharField(max_length=45)
-	cargo = models.CharField(max_length=45)
+	profesion = models.CharField(max_length=45, blank=True)
+	empresa = models.CharField(max_length=45, blank=True)
+	cargo = models.CharField(max_length=45, blank=True)
 
 
 	def __unicode__(self):
