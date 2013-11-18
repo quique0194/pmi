@@ -71,7 +71,7 @@ class Participante(models.Model):
 	apellido_paterno = models.CharField(max_length=45)
 	apellido_materno = models.CharField(max_length=45)
 	sexo = models.CharField(max_length=1, choices=SEXOS)
-	fecha_nacimiento = models.DateField(help_text="Por favor utilice el siguiente formato: <em>DD/MM/AAAA</em>")
+	fecha_nacimiento = models.DateField(help_text="<em>DD/MM/AAAA</em>")
 	departamento = models.PositiveIntegerField(choices=DEPARTAMENTOS, default=AREQUIPA, verbose_name="dpto")
 	direccion = models.CharField(max_length=100)
 	referencia = models.CharField(max_length=100, blank=True)
