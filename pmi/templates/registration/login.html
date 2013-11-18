@@ -1,0 +1,30 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Login</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="http://code.jquery.com/jquery.js"></script>
+
+	<link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" media="screen">
+	<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+
+</head>
+
+<body>
+
+	<div class="container">
+		<form action="" method="post" class="form-signin">
+			<h2>Por favor ingrese</h2>
+			{% csrf_token %}
+    		{{ form.as_p }}
+			<input type="submit" value="Ingresar" />
+		</form>
+		<a href="{% url 'registro:registrar' %}">Registro con voucher</a>
+
+	</div>
+
+</body>
+
+</html>

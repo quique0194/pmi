@@ -1,0 +1,57 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Modificar datos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="http://code.jquery.com/jquery.js"></script>
+
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" media="screen">
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    
+  </head>
+
+  <body>
+  	<div class="container">
+	    <h1> Mis datos </h1>
+      <p> Dni: {{ object.dni }} </p>
+      <p> Boleto: {{ object.boleto }} </p>
+      <p> Email: {{ object.email }} </p>
+      <p> Nombre: {{ object.nombre }} </p>
+      <p> Apellido paterno: {{ object.apellido_paterno }} </p>
+      <p> Apellido materno: {{ object.apellido_materno }} </p>
+      <p> Sexo: {{ object.sexo }} </p>
+      <p> Fecha de nacimiento: {{ object.fecha_nacimiento }} </p>
+      <p> Departamento: {{ object.departamento }} </p>
+      <p> Direccion: {{ object.direccion }} </p>
+      {% if object.referencia %}
+      <p> Referencia: {{ object.referencia }} </p>
+      {% endif %}
+      {% if object.telefono_fijo %}
+      <p> Telefono fijo: {{ object.telefono_fijo }} </p>
+      {% endif %}
+      {% if object.celular %}
+      <p> Celular: {{ object.celular }} </p>
+      {% endif %}
+      {% if object.profesion %}
+      <p> Profesion: {{ object.profesion }} </p>
+      {% endif %}
+      {% if object.empresa %}
+      <p> Empresa: {{ object.empresa }} </p>
+      {% endif %}
+      {% if object.cargo %}
+      <p> Cargo: {{ object.cargo }} </p>
+      {% endif %}
+
+      <a href="{% url 'registro:modificar' %}">
+        <button type="button">Modificar</button>
+      </a>
+      <a href="{% url 'registro:logout' %}">
+        <button type="button">Salir</button>
+      </a>
+	</div>
+  </body>
+
+</html>

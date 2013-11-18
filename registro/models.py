@@ -1,5 +1,6 @@
 from django.db import models
-
+from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 
 
 class Participante(models.Model):
@@ -62,9 +63,11 @@ class Participante(models.Model):
 		(TUMBES, 'Tumbes'),
 		(UCAYALI, 'Ucayali'),
 	)
+
+	user = models.OneToOneField(User, primary_key=True)
 	
-	dni = models.PositiveIntegerField(unique=True)
-	boleto = models.PositiveIntegerField(unique=True)
+	dni = models.PositiveIntegerField(unique=True, db_index=True)
+	boleto = models.PositiveIntegerField(unique=True, db_index=True)
 	email = models.EmailField(unique=True)
 
 	nombre = models.CharField(max_length=45)
@@ -87,3 +90,16 @@ class Participante(models.Model):
 		return self.nombre + ' ' + self.apellido_paterno +\
 				 ' ' + self.apellido_materno
 
+	def save(self, *args, **kwargs):
+		try:
+			self.user.username = self.dni
+			self.user.set_password(self.boleto)
+			self.user.save()
+		except:
+			user = User.objects.create_user(username=self.dni, password=self.boleto)
+			self.user = user
+		super(Participante, self).save(*args, **kwargs)
+
+
+	def get_absolute_url(self):
+		return reverse('registro:detalle', kwargs={'pk': self.pk})

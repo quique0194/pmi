@@ -88,6 +88,7 @@ TEMPLATE_DIRS = (
     os.path.dirname(__file__) + '/templates/',
 )
 
+LOGIN_REDIRECT_URL = 'registro:detalle'
 
 # this line MUST BE THE THE LAST ONE
 try:
