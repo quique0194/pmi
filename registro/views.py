@@ -31,6 +31,10 @@ class ParticipanteUpdate(UpdateView):
 	def get_object(self):
 		return get_object_or_404(Participante, pk=self.request.user.id)
 
+	@method_decorator(login_required)
+	def dispatch(self, *args, **kwargs):
+		return super(ParticipanteUpdate, self).dispatch(*args, **kwargs)
+
 
 
 class ParticipanteDetailView(DetailView):
@@ -38,6 +42,10 @@ class ParticipanteDetailView(DetailView):
 
 	def get_object(self):
 		return get_object_or_404(Participante, pk=self.request.user.id)
+
+	@method_decorator(login_required)
+	def dispatch(self, *args, **kwargs):
+		return super(ParticipanteDetailView, self).dispatch(*args, **kwargs)
 
 
 def logout_view(request):
