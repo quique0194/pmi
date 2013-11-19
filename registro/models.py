@@ -112,9 +112,7 @@ class Participante(models.Model):
 	# Boucher
 
 	numero_operacion = models.PositiveIntegerField( blank=True,help_text =\
-		""" Ejemplos: <a href="http://www.construccion.org/nosotros/verboucherBCP.htm" target="_blank">Boucher BCP</a>,\
-		<a href="http://www.construccion.org/nosotros/verboucherBBVA.htm" target="_blank">Boucher BBVA</a>,\
-		<a href="http://www.construccion.org/nosotros/verboucherBN.htm" target="_blank">Boucher BN</a>""")
+		""" Ejemplo: <a href="http://www.construccion.org/nosotros/verboucherBCP.htm" target="_blank">Boucher BCP</a>""")
 	monto = models.PositiveIntegerField(blank=True)
 	fecha_operacion = models.DateField(blank=True,help_text="<em>DD/MM/AAAA</em>")
 
