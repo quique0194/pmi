@@ -17,6 +17,7 @@
 	<div class="container">
 		<form action="" method="post" class="form-signin">
 			<h2>Por favor ingrese</h2>
+			<p>Su usuario es su dni y su contraseña su número de boleto</p>
 			{% csrf_token %}
     		{{ form.as_p }}
 			<input type="submit" value="Ingresar" />

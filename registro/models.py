@@ -3,6 +3,9 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 
 
+
+
+
 class Participante(models.Model):
 	MASCULINO = 'M'
 	FEMENINO = 'F'
@@ -64,6 +67,18 @@ class Participante(models.Model):
 		(UCAYALI, 'Ucayali'),
 	)
 
+	ESTUDIANTE = 0
+	PROFESIONAL = 1
+	MIEMBRO_PMI = 2
+	NO_MIEMBRO = 3
+
+	STATUS = (
+		(ESTUDIANTE, 'Estudiante'),
+		(PROFESIONAL, 'Profesional'),
+		(MIEMBRO_PMI, 'Miembro PMI'),
+		(NO_MIEMBRO, 'No miembro'),
+	)
+
 	user = models.OneToOneField(User, primary_key=True)
 	
 	dni = models.PositiveIntegerField(unique=True, db_index=True)
@@ -81,9 +96,12 @@ class Participante(models.Model):
 	telefono_fijo = models.CharField(max_length=9, blank=True)
 	celular = models.CharField(max_length=12, blank=True)
 	
-	profesion = models.CharField(max_length=45, blank=True)
-	empresa = models.CharField(max_length=45, blank=True)
-	cargo = models.CharField(max_length=45, blank=True)
+	status = models.PositiveIntegerField(choices=STATUS)
+	carnet_universitario = models.CharField(max_length=15, blank=True, help_text='Solo si eres estudiante')
+	profesion = models.CharField(max_length=45, blank=True, help_text='Solo si eres profesional')
+	empresa = models.CharField(max_length=45, blank=True, help_text='Solo si eres profesional')
+	cargo = models.CharField(max_length=45, blank=True, help_text='Solo si eres profesional')
+	numero_miembro_pmi = models.CharField(max_length=45, blank=True, help_text='Solo si eres miembro pmi')
 
 
 	def __unicode__(self):
@@ -103,3 +121,10 @@ class Participante(models.Model):
 
 	def get_absolute_url(self):
 		return reverse('registro:detalle', kwargs={'pk': self.pk})
+
+
+class Voucher(models.Model):
+	user = models.OneToOneField(Participante, primary_key=True)
+	numero_operacion = models.PositiveIntegerField()
+	monto = models.PositiveIntegerField()
+	fecha_operacion = models.DateField(help_text="<em>DD/MM/AAAA</em>")
