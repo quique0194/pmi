@@ -111,10 +111,10 @@ class Participante(models.Model):
 
 	# Boucher
 
-	numero_operacion = models.PositiveIntegerField( blank=True,help_text =\
+	numero_operacion = models.PositiveIntegerField( blank=True, null=True, help_text =\
 		""" Ejemplo: <a href="http://www.construccion.org/nosotros/verboucherBCP.htm" target="_blank">Boucher BCP</a>""")
-	monto = models.IntegerField(blank=True)
-	fecha_operacion = models.DateField(blank=True,help_text="<em>DD/MM/AAAA</em>")
+	monto = models.PositiveIntegerField(blank=True, null=True)
+	fecha_operacion = models.DateField(blank=True, null=True, help_text="<em>DD/MM/AAAA</em>")
 
 	def __unicode__(self):
 		return self.nombre + ' ' + self.apellido_paterno +\
