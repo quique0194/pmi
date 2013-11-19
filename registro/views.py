@@ -1,6 +1,8 @@
+from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, FormView
 from django.views.generic.detail import DetailView
 from registro.models import Participante
+from registro.forms import ParticipanteCreateForm, ParticipanteUpdateForm
 from django.shortcuts import redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -8,25 +10,21 @@ from django.utils.decorators import method_decorator
 from django.shortcuts import get_object_or_404
 
 
-class ParticipanteCreate(CreateView):
-	template_name_suffix = '_create_form'
+class ParticipanteCreate(FormView):
+	template_name = 'registro/participante_create_form.html'
+	success_url = '/registro/success_create'
 
-	model = Participante
-	fields = ['dni', 'email',  'nombre', 'apellido_paterno',
-		'apellido_materno', 'sexo', 'fecha_nacimiento', 'departamento',
-		'direccion', 'referencia', 'telefono_fijo', 'celular', 
-		'profesion', 'empresa', 'cargo']
+	form_class = ParticipanteCreateForm
+
+
+class SuccessCreateView(TemplateView):
+	template_name = "registro/success_create.html"
 
 
 class ParticipanteUpdate(UpdateView):
 	template_name_suffix = '_update_form'
 	success_url = '/registro/detalle/'
-
-	model = Participante
-	fields = ['dni', 'email',  'nombre', 'apellido_paterno',
-		'apellido_materno', 'sexo', 'fecha_nacimiento', 'departamento',
-		'direccion', 'referencia', 'telefono_fijo', 'celular', 
-		'profesion', 'empresa', 'cargo']
+	form_class = ParticipanteUpdateForm
 
 	def get_object(self):
 		return get_object_or_404(Participante, pk=self.request.user.id)

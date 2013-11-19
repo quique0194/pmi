@@ -81,14 +81,18 @@ class Participante(models.Model):
 
 	user = models.OneToOneField(User, primary_key=True)
 	
+	# requeridos
+
 	dni = models.PositiveIntegerField(unique=True, db_index=True)
 	boleto = models.PositiveIntegerField(unique=True, db_index=True)
 	email = models.EmailField(unique=True)
 
+	# datos personales
+
 	nombre = models.CharField(max_length=45)
 	apellido_paterno = models.CharField(max_length=45)
 	apellido_materno = models.CharField(max_length=45)
-	sexo = models.CharField(max_length=1, choices=SEXOS)
+	sexo = models.CharField(max_length=1, default=MASCULINO,choices=SEXOS)
 	fecha_nacimiento = models.DateField(help_text="<em>DD/MM/AAAA</em>")
 	departamento = models.PositiveIntegerField(choices=DEPARTAMENTOS, default=AREQUIPA, verbose_name="dpto")
 	direccion = models.CharField(max_length=100)
@@ -96,13 +100,23 @@ class Participante(models.Model):
 	telefono_fijo = models.CharField(max_length=9, blank=True)
 	celular = models.CharField(max_length=12, blank=True)
 	
-	status = models.PositiveIntegerField(choices=STATUS)
-	carnet_universitario = models.CharField(max_length=15, blank=True, help_text='Solo si eres estudiante')
-	profesion = models.CharField(max_length=45, blank=True, help_text='Solo si eres profesional')
-	empresa = models.CharField(max_length=45, blank=True, help_text='Solo si eres profesional')
-	cargo = models.CharField(max_length=45, blank=True, help_text='Solo si eres profesional')
-	numero_miembro_pmi = models.CharField(max_length=45, blank=True, help_text='Solo si eres miembro pmi')
+	# informacion laboral
 
+	status = models.PositiveIntegerField(choices=STATUS, default=NO_MIEMBRO)
+	carnet_universitario = models.CharField(max_length=15, blank=True, help_text='Solo estudiantes')
+	profesion = models.CharField(max_length=45, blank=True, help_text='Solo profesionales')
+	empresa = models.CharField(max_length=45, blank=True, help_text='Solo profesionales')
+	cargo = models.CharField(max_length=45, blank=True, help_text='Solo profesionales')
+	numero_miembro_pmi = models.CharField(max_length=45, blank=True, help_text='Solo miembros pmi')
+
+	# Boucher
+
+	numero_operacion = models.PositiveIntegerField( blank=True,help_text =\
+		""" Ejemplos: <a href="http://www.construccion.org/nosotros/verboucherBCP.htm" target="_blank">Boucher BCP</a>,\
+		<a href="http://www.construccion.org/nosotros/verboucherBBVA.htm" target="_blank">Boucher BBVA</a>,\
+		<a href="http://www.construccion.org/nosotros/verboucherBN.htm" target="_blank">Boucher BN</a>""")
+	monto = models.PositiveIntegerField(blank=True)
+	fecha_operacion = models.DateField(blank=True,help_text="<em>DD/MM/AAAA</em>")
 
 	def __unicode__(self):
 		return self.nombre + ' ' + self.apellido_paterno +\
@@ -122,9 +136,3 @@ class Participante(models.Model):
 	def get_absolute_url(self):
 		return reverse('registro:detalle', kwargs={'pk': self.pk})
 
-
-class Voucher(models.Model):
-	user = models.OneToOneField(Participante, primary_key=True)
-	numero_operacion = models.PositiveIntegerField()
-	monto = models.PositiveIntegerField()
-	fecha_operacion = models.DateField(help_text="<em>DD/MM/AAAA</em>")

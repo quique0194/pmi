@@ -9,4 +9,6 @@ urlpatterns = patterns('',
     url(r'^modificar/$', views.ParticipanteUpdate.as_view(),\
     	name='modificar'),
     url(r'^logout/$', views.logout_view, name='logout'),
+    url(r'^success_create/$', views.SuccessCreateView.as_view(),\
+    	name='success_create'),
 )

@@ -35,6 +35,7 @@
       {% if object.celular %}
       <p> Celular: {{ object.celular }} </p>
       {% endif %}
+      <p>Status: {{ object.status }} </p>
       {% if object.profesion %}
       <p> Profesion: {{ object.profesion }} </p>
       {% endif %}
@@ -44,11 +45,11 @@
       {% if object.cargo %}
       <p> Cargo: {{ object.cargo }} </p>
       {% endif %}
-      {% if object.voucher %}
+      {% if object.numero_operacion %}
       <h3>Voucher</h3>
-      <p> Nro de operacion: {{ object.voucher.numero_operacion }} </p>
-      <p> Monto: {{ object.voucher.monto }} </p>
-      <p> Fecha de operacion: {{ object.voucher.fecha_operacion }} </p>
+      <p> Nro de operacion: {{ object.numero_operacion }} </p>
+      <p> Monto: {{ object.monto }} </p>
+      <p> Fecha de operacion: {{ object.fecha_operacion }} </p>
       {% endif %}
 
       <a href="{% url 'registro:modificar' %}">

@@ -1,11 +1,8 @@
 from django.contrib import admin
-from registro.models import Participante, Voucher
+from registro.models import Participante
 
 # Register your models here.
 
-class VoucherInline(admin.StackedInline):
-    model = Voucher
-    extra = 1
 
 class ParticipanteAdmin(admin.ModelAdmin):
     fieldsets = [
@@ -14,12 +11,12 @@ class ParticipanteAdmin(admin.ModelAdmin):
             'apellido_materno','sexo','fecha_nacimiento','departamento','direccion',
             'referencia', 'telefono_fijo', 'celular']}),
         ('Informacion laboral',{'fields':['status', 'carnet_universitario','profesion', 'empresa',
-            'cargo', 'numero_miembro_pmi']})
+            'cargo', 'numero_miembro_pmi']}),
+        ('Voucher',{'fields': ['numero_operacion', 'monto', 'fecha_operacion']}),
     ]
     radio_fields = {'sexo': admin.HORIZONTAL , 'status': admin.VERTICAL}
     list_display = ('boleto', '__unicode__', 'dni')
     search_fields = ['boleto', 'dni', 'nombre', 'apellido_paterno', 'apellido_materno']
-    inlines = [VoucherInline]
     
 
 admin.site.register(Participante, ParticipanteAdmin)
