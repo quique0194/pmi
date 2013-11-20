@@ -87,7 +87,7 @@ class Participante(models.Model):
 	# requeridos
 
 	dni = models.CharField(max_length=8, unique=True, db_index=True, 
-		validators = [RegexValidator(r'[0-9]','Solo se puede ingresar digitos'), MaxLengthValidator(8), MinLengthValidator(8)])
+		validators = [RegexValidator(r"^[0-9]*$",'Solo se puede ingresar digitos'), MaxLengthValidator(8), MinLengthValidator(8)])
 	boleto = models.PositiveIntegerField(unique=True, db_index=True, 
 		validators = [MaxValueValidator(999)])
 	email = models.EmailField(unique=True)
@@ -103,15 +103,15 @@ class Participante(models.Model):
 	direccion = models.CharField(max_length=100, blank=True)
 	referencia = models.CharField(max_length=100, blank=True)
 	telefono_fijo = models.CharField(max_length=9, blank=True, 
-		validators = [RegexValidator(r'[0-9]','Solo se puede ingresar digitos')])
+		validators = [RegexValidator(r"^[0-9]*$",'Solo se puede ingresar digitos')])
 	celular = models.CharField(max_length=12, blank=True, 
-		validators = [RegexValidator(r'[0-9]','Solo se puede ingresar digitos')])
+		validators = [RegexValidator(r"^[0-9]*$",'Solo se puede ingresar digitos')])
 	
 	# informacion laboral
 
 	status = models.PositiveIntegerField(choices=STATUS, default=PROFESIONAL)
 	carnet_universitario = models.CharField(max_length=15, blank=True, help_text='Solo estudiantes', 
-		validators = [RegexValidator(r'[0-9]|-','Solo se puede ingresar digitos y guiones')])
+		validators = [RegexValidator(r"^([0-9]|-)*$",'Solo se puede ingresar digitos y guiones')])
 	profesion = models.CharField(max_length=45, blank=True, help_text='Solo profesionales')
 	empresa = models.CharField(max_length=45, blank=True, help_text='Solo profesionales')
 	cargo = models.CharField(max_length=45, blank=True, help_text='Solo profesionales')
@@ -120,7 +120,7 @@ class Participante(models.Model):
 
 	miembro_pmi = models.BooleanField()
 	numero_miembro_pmi = models.CharField(max_length=45, blank=True, help_text='Solo miembros pmi', 
-		validators = [RegexValidator(r'[0-9]|-','Solo se puede ingresar digitos y guiones')])
+		validators = [RegexValidator(r"^([0-9]|-)*$",'Solo se puede ingresar digitos y guiones')])
 
 	# Boucher
 
@@ -133,7 +133,7 @@ class Participante(models.Model):
 
 	factura = models.BooleanField()
 	ruc = models.CharField(max_length=11, blank=True, help_text="Solo si desea factura",
-		validators = [RegexValidator(r'[0-9]','Solo se puede ingresar digitos'), MaxLengthValidator(11), MinLengthValidator(11)])
+		validators = [RegexValidator(r"^[0-9]*$",'Solo se puede ingresar digitos'), MaxLengthValidator(11), MinLengthValidator(11)])
 	nombre_juridico = models.CharField(max_length=45, blank=True, help_text="Solo si desea factura")
 	direccion_fiscal = models.CharField(max_length=100, blank=True, help_text="Solo si desea factura")
 
