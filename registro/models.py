@@ -75,9 +75,9 @@ class Participante(models.Model):
 	STATUS = (
 		(ESTUDIANTE, 'Estudiante'),
 		(PROFESIONAL, 'Profesional'),
-		(MIEMBRO_PMI, 'Miembro PMI'),
-		(NO_MIEMBRO, 'No miembro'),
 	)
+
+
 
 	user = models.OneToOneField(User, primary_key=True)
 	
@@ -102,11 +102,12 @@ class Participante(models.Model):
 	
 	# informacion laboral
 
-	status = models.PositiveIntegerField(choices=STATUS, default=NO_MIEMBRO)
+	status = models.PositiveIntegerField(choices=STATUS, default=PROFESIONAL)
 	carnet_universitario = models.CharField(max_length=15, blank=True, help_text='Solo estudiantes')
 	profesion = models.CharField(max_length=45, blank=True, help_text='Solo profesionales')
 	empresa = models.CharField(max_length=45, blank=True, help_text='Solo profesionales')
 	cargo = models.CharField(max_length=45, blank=True, help_text='Solo profesionales')
+	miembro_pmi = models.BooleanField()
 	numero_miembro_pmi = models.CharField(max_length=45, blank=True, help_text='Solo miembros pmi')
 
 	# Boucher
@@ -115,6 +116,15 @@ class Participante(models.Model):
 		""" Ejemplo: <a href="http://www.construccion.org/nosotros/verboucherBCP.htm" target="_blank">Boucher BCP</a>""")
 	monto = models.PositiveIntegerField(blank=True, null=True)
 	fecha_operacion = models.DateField(blank=True, null=True, help_text="<em>DD/MM/AAAA</em>")
+
+	# Factura
+
+	factura = models.BooleanField()
+	ruc = models.PositiveIntegerField(blank=True, null=True, help_text="Solo si desea factura")
+	nombre_juridico = models.CharField(max_length=45, blank=True, help_text="Solo si desea factura")
+	direccion_fiscal = models.CharField(max_length=100, blank=True, help_text="Solo si desea factura")
+
+
 
 	def __unicode__(self):
 		return self.nombre + ' ' + self.apellido_paterno +\
