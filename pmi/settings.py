@@ -95,8 +95,19 @@ TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS + (
     'django.core.context_processors.request',
 )
 
+# Login
+
 LOGIN_REDIRECT_URL = 'registro:detalle'
 LOGIN_URL = 'registro:login'
+
+# Email
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'pmisur2013@gmail.com'
+EMAIL_HOST_PASSWORD = 'imaginaperu'
+EMAIL_PORT = '587'
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'pmisur2013@gmail.com'
 
 # this line MUST BE THE THE LAST ONE
 try:

@@ -5,42 +5,71 @@ Mis datos
 {% endblock %}
 
 {% block content %}
-
-      <p> Dni: {{ object.dni }} </p>
-      <p> Boleto: {{ object.boleto }} </p>
-      <p> Email: {{ object.email }} </p>
-      <p> Nombre: {{ object.nombre }} </p>
-      <p> Apellido paterno: {{ object.apellido_paterno }} </p>
-      <p> Apellido materno: {{ object.apellido_materno }} </p>
-      <p> Sexo: {{ object.sexo }} </p>
-      <p> Fecha de nacimiento: {{ object.fecha_nacimiento }} </p>
-      <p> Departamento: {{ object.departamento }} </p>
-      <p> Direccion: {{ object.direccion }} </p>
-      {% if object.referencia %}
-      <p> Referencia: {{ object.referencia }} </p>
-      {% endif %}
-      {% if object.telefono_fijo %}
-      <p> Telefono fijo: {{ object.telefono_fijo }} </p>
-      {% endif %}
-      {% if object.celular %}
-      <p> Celular: {{ object.celular }} </p>
-      {% endif %}
-      <p>Status: {{ object.status }} </p>
-      {% if object.profesion %}
-      <p> Profesion: {{ object.profesion }} </p>
-      {% endif %}
-      {% if object.empresa %}
-      <p> Empresa: {{ object.empresa }} </p>
-      {% endif %}
-      {% if object.cargo %}
-      <p> Cargo: {{ object.cargo }} </p>
-      {% endif %}
+      <h3>Información personal:</h3>
+      <table class="table table-hover">
+            <tr><td> Dni: </td><td> {{ object.dni }} </td></tr>
+            <tr><td> Boleto: </td><td> {{ object.boleto }} </td></tr>
+            <tr><td> Email: </td><td> {{ object.email }} </td></tr>
+            <tr><td> Nombre: </td><td> {{ object.nombre }} </td></tr>
+            <tr><td> Apellido paterno: </td><td> {{ object.apellido_paterno }} </td></tr>
+            <tr><td> Apellido materno: </td><td> {{ object.apellido_materno }} </td></tr>
+            <tr><td> Sexo: </td><td> {{ object.sexo }} </td></tr>
+            <tr><td> Fecha de nacimiento: </td><td> {{ object.fecha_nacimiento }} </td></tr>
+            <tr><td> Departamento: </td><td> {{ object.departamento }} </td></tr>
+            <tr><td> Direccion: </td><td> {{ object.direccion }} </td></tr>
+            {% if object.referencia %}
+            <tr><td> Referencia: </td><td> {{ object.referencia }} </td></tr>
+            {% endif %}
+            {% if object.telefono_fijo %}
+            <tr><td> Telefono fijo: </td><td> {{ object.telefono_fijo }} </td></tr>
+            {% endif %}
+            {% if object.celular %}
+            <tr><td> Celular: </td><td> {{ object.celular }} </td></tr>
+            {% endif %}
+      </table>
+      <h3>Status:</h3>
+      <table class="table table-hover">
+            <tr><td>Status: </td><td> {{ object.status }} </td></tr>
+            {% if object.carnet_universitario %}
+            <tr><td> Carnet universitario: </td><td> {{ object.carnet_universitario }} </td></tr>
+            {% endif %}
+            {% if object.profesion %}
+            <tr><td> Profesion: </td><td> {{ object.profesion }} </td></tr>
+            {% endif %}
+            {% if object.empresa %}
+            <tr><td> Empresa: </td><td> {{ object.empresa }} </td></tr>
+            {% endif %}
+            {% if object.cargo %}
+            <tr><td> Cargo: </td><td> {{ object.cargo }} </td></tr>
+            {% endif %}
+            
+      </table>
+      <h3>PMI:</h3>
+      <table class="table table-hover">
+            <tr><td> Miembro: </td><td> {{ object.miembro_pmi }} </td></tr>
+            {% if object.numero_miembro_pmi %}
+            <tr><td> Numero miembro PMI: </td><td> {{ object.numero_miembro_pmi }} </td></tr>
+            {% endif %}
+      </table>
       {% if object.numero_operacion %}
-      <h3>Voucher</h3>
-      <p> Nro de operacion: {{ object.numero_operacion }} </p>
-      <p> Monto: {{ object.monto }} </p>
-      <p> Fecha de operacion: {{ object.fecha_operacion }} </p>
+      <h3>Boucher:</h3>
+      <table class="table table-hover">
+
+            <tr><td> Nro de operacion: </td><td> {{ object.numero_operacion }} </td></tr>
+            <tr><td> Monto: </td><td> {{ object.monto }} </td></tr>
+            <tr><td> Fecha de operacion: </td><td> {{ object.fecha_operacion }} </td></tr> 
+      </table>
       {% endif %}
+      <h3>Factura:</h3>
+      <table class="table table-hover">
+            <tr><td> Factura: </td><td> {{ object.factura }} </td></tr>
+            {% if object.ruc %}
+            <tr><td> Ruc: </td><td> {{ object.ruc }} </td></tr>
+            <tr><td> Nombre jurídico: </td><td> {{ object.nombre_juridico }} </td></tr>
+            <tr><td> Dirección fiscal: </td><td> {{ object.direccion_fiscal }} </td></tr> 
+            {% endif %}
+      </table>
+
 
       <a href="{% url 'registro:modificar' %}">
         <button type="button">Modificar</button>

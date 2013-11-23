@@ -12,15 +12,18 @@ from django.template import RequestContext
 from django.views.decorators.csrf import csrf_protect
 
 
+
 class ParticipanteCreate(FormView):
 	template_name = 'registro/participante_create_form.html'
 	success_url = '/registro/success_create'
 
 	form_class = ParticipanteCreateForm
 
+	def form_valid(self, form):
+		form.save()
+		self.request.session['boleto'] = form.instance.boleto
+		return super(ParticipanteCreate, self).form_valid(form)
 
-class SuccessCreateView(TemplateView):
-	template_name = "registro/success_create.html"
 
 
 class ParticipanteUpdate(UpdateView):
@@ -35,6 +38,8 @@ class ParticipanteUpdate(UpdateView):
 	def dispatch(self, *args, **kwargs):
 		return super(ParticipanteUpdate, self).dispatch(*args, **kwargs)
 
+	
+
 
 
 class ParticipanteDetailView(DetailView):
@@ -48,9 +53,11 @@ class ParticipanteDetailView(DetailView):
 		return super(ParticipanteDetailView, self).dispatch(*args, **kwargs)
 
 
+
 def logout_view(request):
     logout(request)
     return redirect('registro:login')
+
 
 @csrf_protect
 def login_view(request):
@@ -68,3 +75,12 @@ def login_view(request):
 			msj = 'Dni o boleto incorrectos'
 
 	return render_to_response('registro/login.html', { 'msj': msj }, context_instance=RequestContext(request))
+
+
+
+class SuccessCreateView(TemplateView):
+	template_name = "registro/success_create.html"
+
+def  success_create_view(request):
+	return render_to_response('registro/success_create.html', {'boleto': request.session['boleto']},\
+		context_instance=RequestContext(request))

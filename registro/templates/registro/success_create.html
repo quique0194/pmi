@@ -6,7 +6,9 @@ Operacion Exitosa
 
 {% block content %}
 
-Ahora puede loguearse para ver sus datos o modificarlos <br>
+<h3>Su número de boleto es: {{ boleto }}</h3>
+Se le acaba de enviar un email para que pueda verificar sus datos.<br>
+<strong>Nota:</strong> Probablemente se encuentre como SPAM.<br><br>
 <a href="{% url 'registro:login' %}">
 	<button type="button">Continuar</button>
 </a>

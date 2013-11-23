@@ -13,7 +13,7 @@ class ParticipanteAdmin(admin.ModelAdmin):
         ('Informacion laboral',{'fields':['status', 'carnet_universitario','profesion', 'empresa',
             'cargo']}),
         ('PMI',{'fields': ['miembro_pmi', 'numero_miembro_pmi']}),
-        ('Voucher',{'fields': ['numero_operacion', 'monto', 'fecha_operacion']}),
+        ('Boucher',{'fields': ['numero_operacion', 'monto', 'fecha_operacion']}),
         ('Factura',{'fields': ['factura', 'ruc', 'nombre_juridico', 'direccion_fiscal']}),
     ]
     radio_fields = {'sexo': admin.HORIZONTAL , 'status': admin.HORIZONTAL}

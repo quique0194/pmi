@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Max
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.core.validators  import RegexValidator
@@ -6,6 +7,59 @@ from django.core.validators  import MaxLengthValidator, MinLengthValidator
 from django.core.validators  import MinValueValidator, MaxValueValidator
 from django.db.models.signals import post_delete
 from django.dispatch.dispatcher import receiver
+from django.core.mail import EmailMessage
+
+
+
+def email_datos(participante):
+	msj = "Este es un correo generado automaticamente. Por favor no responda a este mensaje.\n"
+	msj = msj + "El objetivo de este mensaje es que usted pueda revisar su informacion para el congreso de PMI 2013.\n\n"
+	msj = msj + "BOLETO: " + str(participante.boleto) + "\n"
+
+	msj = msj + "\nINFORMACION PERSONAL:\n"
+	msj = msj + "DNI: " + str(participante.dni) + "\n"
+	msj = msj + "Nombre completo: " + participante.nombre  + participante.apellido_paterno + \
+		participante.apellido_materno + "\n"
+	msj = msj + "Sexo: " + str(participante.sexo) + "\n"
+	if participante.fecha_nacimiento:
+		msj = msj + "Fecha de nacimiento: " + str(participante.fecha_nacimiento) + "\n"
+	msj = msj + "Departamnto: " + str(participante.departamento) + "\n"
+	if participante.direccion:
+		msj = msj + "Direccion: " + participante.direccion + "\n"
+	if participante.referencia:
+		msj = msj + "Referencia: " + participante.referencia + "\n"
+	if participante.telefono_fijo:
+		msj = msj + "Telefono fijo: " + participante.telefono_fijo + "\n"
+	if participante.celular:
+		msj = msj + "Celular: " + participante.celular + "\n"
+	msj = msj + "\nSTATUS:\n"
+	msj = msj + "Status: " + str(participante.status) + "\n"
+	if participante.status == participante.ESTUDIANTE:
+		msj = msj + "Carnet universitario: " + participante.carnet_universitario + "\n"
+	if participante.status == participante.PROFESIONAL:
+		msj = msj + "Profesion: " + participante.profesion + "\n"
+		msj = msj + "Empresa: " + participante.empresa + "\n"
+		msj = msj + "Cargo: " + participante.cargo + "\n"
+	msj = msj + "\nPMI:\n"
+	msj = msj + "Miembro PMI: " + str(participante.miembro_pmi) + "\n"
+	if participante.miembro_pmi:
+		msj = msj + "Numero miembro PMI: " + participante.numero_miembro_pmi + "\n"
+	msj = msj + "\nBOUCHER:\n"
+	if participante.numero_operacion:
+		msj = msj + "Numero de operacion: " + str(participante.numero_operacion) + "\n"
+		msj = msj + "Monto: " + str(participante.monto) + "\n"
+		msj = msj + "Fecha de operacion: " + str(participante.fecha_operacion) + "\n"
+	msj = msj + "\nFACTURA:\n"
+	msj = msj + "Factura: " + str(participante.factura) + "\n"
+	if participante.factura:
+		msj = msj + "Ruc: " + participante.ruc + "\n"
+		msj = msj + "Nombre juridico: " + participante.nombre_juridico + "\n"
+		msj = msj + "Direccion fiscal: " + participante.direccion_fiscal + "\n"
+	msj = msj + "\n Si desea cambiar algo, puedo hacerlo con toda confianza en nuestra pagina web:\n"
+	msj = msj + """http://199.175.48.205:8000/registro/modificar/"""
+
+	email = EmailMessage('Datos PMI 2013', msj, to=[participante.email])
+	email.send()
 
 
 
@@ -144,6 +198,12 @@ class Participante(models.Model):
 				 ' ' + self.apellido_materno
 
 	def save(self, *args, **kwargs):
+		if not self.boleto:
+			max_boleto = Participante.objects.filter(boleto__range=(500,599)).aggregate(Max('boleto'))['boleto__max']
+			if max_boleto:
+				self.boleto = max_boleto+1
+			else:
+				self.boleto = 500
 		# modification
 		try:
 			self.user.username = self.dni
@@ -153,6 +213,8 @@ class Participante(models.Model):
 		except:
 			user = User.objects.create_user(username=self.dni, password=self.boleto)
 			self.user = user
+		
+		email_datos(self)
 		super(Participante, self).save(*args, **kwargs)
 
 
