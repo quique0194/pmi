@@ -1,5 +1,15 @@
-<h1>Operación Exitosa</h1>
+{% extends "registro/base.html" %}
+
+{% block title %}
+Operacion Exitosa
+{% endblock %}
+
+{% block content %}
+
 Ahora puede loguearse para ver sus datos o modificarlos <br>
-<a href="{% url 'login' %}">
+<a href="{% url 'registro:login' %}">
 	<button type="button">Continuar</button>
 </a>
+
+
+{% endblock %}	

@@ -1,0 +1,43 @@
+{% extends "registro/base.html" %}
+
+
+{% block title %}
+Ingrese por favor
+{% endblock %}
+
+
+
+{% block content %}
+
+<div id="login">
+	<form class="form-horizontal" name="LoginForm" action="" method="post">
+		{% csrf_token %}
+		{% if next %}
+			<input type="hidden" name="next" value="{{ next }}" />
+		{% endif %}
+		<div class="control-group">
+			<label class="control-label" for="username">DNI</label>
+			<div class="controls">
+				<input type="text" id="username" name="username"  placeholder="DNI"></div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="password">Boleto</label>
+			<div class="controls">
+				<input type="text" name="password" id="password" placeholder="Boleto"></div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<button type="submit" class="btn">Login</button>
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<p class="text-error">{{ msj }}</p>
+				<a href="{% url 'registro:registrar' %}">Registro con Boucher</a>
+			</div>
+		</div>
+	</form>
+	
+	
+</div>
+{% endblock %}

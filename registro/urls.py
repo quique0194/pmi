@@ -8,7 +8,8 @@ urlpatterns = patterns('',
     url(r'^registrar/$', views.ParticipanteCreate.as_view(), name='registrar'),
     url(r'^modificar/$', views.ParticipanteUpdate.as_view(),\
     	name='modificar'),
-    url(r'^logout/$', views.logout_view, name='logout'),
     url(r'^success_create/$', views.SuccessCreateView.as_view(),\
-    	name='success_create'),
+    	name='success_create'),    
+    url(r'^login/$', views.login_view, name='login'),
+    url(r'^logout/$', views.logout_view, name='logout'),
 )

@@ -7,6 +7,7 @@ class ParticipanteCreateForm(ModelForm):
 		model = Participante
 		exclude = ['user', 'boleto']
 		widgets = {
+			'dni': TextInput(attrs={'size': 50, 'title': 'Your name',}),
             'direccion': TextInput(attrs={'size': 50, 'title': 'Your name',}),
             'sexo': RadioSelect(choices=Participante.SEXOS),
             'status': RadioSelect,

@@ -4,8 +4,8 @@ from django.core.urlresolvers import reverse
 from django.core.validators  import RegexValidator
 from django.core.validators  import MaxLengthValidator, MinLengthValidator
 from django.core.validators  import MinValueValidator, MaxValueValidator
-
-
+from django.db.models.signals import post_delete
+from django.dispatch.dispatcher import receiver
 
 
 
@@ -144,10 +144,12 @@ class Participante(models.Model):
 				 ' ' + self.apellido_materno
 
 	def save(self, *args, **kwargs):
+		# modification
 		try:
 			self.user.username = self.dni
 			self.user.set_password(self.boleto)
 			self.user.save()
+		# creation
 		except:
 			user = User.objects.create_user(username=self.dni, password=self.boleto)
 			self.user = user
@@ -157,3 +159,8 @@ class Participante(models.Model):
 	def get_absolute_url(self):
 		return reverse('registro:detalle', kwargs={'pk': self.pk})
 
+
+
+@receiver(post_delete, sender=Participante)
+def participante_delete(sender, instance, **kwargs):
+	instance.user.delete()

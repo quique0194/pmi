@@ -1,0 +1,34 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Registro</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="http://code.jquery.com/jquery.js"></script>
+
+	<link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet" media="screen">
+	<script src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
+
+	<style type="text/css">
+		.container{
+			width:905px;
+		}
+	</style>
+
+</head>
+
+<body>
+
+	<div class="container">
+		<img src="{% static 'images/logo-banner.png' %}">
+		
+		<br><br><br><h1>{% block title %}{% endblock %}</h1><br><br><br>
+
+		{% block content %}{% endblock %}		
+	
+	</div>
+
+</body>
+
+</html>

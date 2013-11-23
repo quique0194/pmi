@@ -1,21 +1,11 @@
-{% load staticfiles %}
+{% extends "registro/base.html" %}
 
-<!DOCTYPE html>
-<html>
+{% block title %}
+Mis datos
+{% endblock %}
 
-  <head>
-    <title>Modificar datos</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="http://code.jquery.com/jquery.js"></script>
+{% block content %}
 
-    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" media="screen">
-    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
-    
-  </head>
-
-  <body>
-  	<div class="container">
-	    <h1> Mis datos </h1>
       <p> Dni: {{ object.dni }} </p>
       <p> Boleto: {{ object.boleto }} </p>
       <p> Email: {{ object.email }} </p>
@@ -58,7 +48,5 @@
       <a href="{% url 'registro:logout' %}">
         <button type="button">Salir</button>
       </a>
-	</div>
-  </body>
 
-</html>
+{% endblock %}
