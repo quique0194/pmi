@@ -19,7 +19,7 @@ def email_datos(participante):
 	msj = msj + "\nINFORMACION PERSONAL:\n"
 	msj = msj + "DNI: " + str(participante.dni) + "\n"
 	msj = msj + "Nombre completo: " + participante.nombre  + " " + participante.apellido_paterno + \
-		participante.apellido_materno + "\n"
+		" " + participante.apellido_materno + "\n"
 	msj = msj + "Sexo: " + participante.get_sexo_display() + "\n"
 	if participante.fecha_nacimiento:
 		msj = msj + "Fecha de nacimiento: " + str(participante.fecha_nacimiento) + "\n"
@@ -41,20 +41,24 @@ def email_datos(participante):
 		msj = msj + "Empresa: " + participante.empresa + "\n"
 		msj = msj + "Cargo: " + participante.cargo + "\n"
 	msj = msj + "\nPMI:\n"
-	msj = msj + "Miembro PMI: " + str(participante.miembro_pmi) + "\n"
 	if participante.miembro_pmi:
+		msj = msj + "Miembro PMI: " + "Si"+ "\n"
 		msj = msj + "Numero miembro PMI: " + participante.numero_miembro_pmi + "\n"
-	msj = msj + "\nBOUCHER:\n"
+	else:
+		msj = msj + "Miembro PMI: " + "No"+ "\n"
 	if participante.numero_operacion:
+		msj = msj + "\nBOUCHER:\n"
 		msj = msj + "Numero de operacion: " + str(participante.numero_operacion) + "\n"
 		msj = msj + "Monto: " + str(participante.monto) + "\n"
 		msj = msj + "Fecha de operacion: " + str(participante.fecha_operacion) + "\n"
 	msj = msj + "\nFACTURA:\n"
-	msj = msj + "Factura: " + str(participante.factura) + "\n"
 	if participante.factura:
+		msj = msj + "Factura: " + "Si" + "\n"
 		msj = msj + "Ruc: " + participante.ruc + "\n"
 		msj = msj + "Nombre juridico: " + participante.nombre_juridico + "\n"
 		msj = msj + "Direccion fiscal: " + participante.direccion_fiscal + "\n"
+	else:
+		msj = msj + "Factura: " + "No" + "\n"
 	msj = msj + "\n Si desea cambiar algo, puedo hacerlo con toda confianza en nuestra pagina web:\n"
 	msj = msj + """http://199.175.48.205:8000/registro/modificar/"""
 
