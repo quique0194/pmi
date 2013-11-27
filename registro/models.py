@@ -18,12 +18,12 @@ def email_datos(participante):
 
 	msj = msj + "\nINFORMACION PERSONAL:\n"
 	msj = msj + "DNI: " + str(participante.dni) + "\n"
-	msj = msj + "Nombre completo: " + participante.nombre  + participante.apellido_paterno + \
+	msj = msj + "Nombre completo: " + participante.nombre  + " " + participante.apellido_paterno + \
 		participante.apellido_materno + "\n"
-	msj = msj + "Sexo: " + str(participante.sexo) + "\n"
+	msj = msj + "Sexo: " + participante.get_sexo_display() + "\n"
 	if participante.fecha_nacimiento:
 		msj = msj + "Fecha de nacimiento: " + str(participante.fecha_nacimiento) + "\n"
-	msj = msj + "Departamnto: " + str(participante.departamento) + "\n"
+	msj = msj + "Departamnto: " + participante.get_departamento_display() + "\n"
 	if participante.direccion:
 		msj = msj + "Direccion: " + participante.direccion + "\n"
 	if participante.referencia:
@@ -33,7 +33,7 @@ def email_datos(participante):
 	if participante.celular:
 		msj = msj + "Celular: " + participante.celular + "\n"
 	msj = msj + "\nSTATUS:\n"
-	msj = msj + "Status: " + str(participante.status) + "\n"
+	msj = msj + "Status: " + participante.get_status_display() + "\n"
 	if participante.status == participante.ESTUDIANTE:
 		msj = msj + "Carnet universitario: " + participante.carnet_universitario + "\n"
 	if participante.status == participante.PROFESIONAL:
