@@ -1,10 +1,15 @@
 {% extends "registro/base.html" %}
 
+{% load staticfiles %}
+
 {% block title %}
 Mis datos
 {% endblock %}
 
 {% block content %}
+      <a href="/static/downloads/certificados/{{object.dni}}.pdf"><button type="button" class="btn btn-primary">Certificado</button></a>
+      <a href="/static/downloads/ponencias.rar"><button type="button" class="btn btn-info">Ponencias</button></a>
+
       <h3>Información personal:</h3>
       <table class="table table-hover">
             <tr><td> Dni: </td><td> {{ object.dni }} </td></tr>
